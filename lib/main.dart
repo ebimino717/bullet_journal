@@ -26,31 +26,78 @@ class _BulletJournalsState extends State<BulletJournals> {
   // final _biggerFont = const TextStyle(fontSize: 18);
 
   Widget _buildJournals() {
-    return ListView.builder(itemBuilder: (context, i) {
-      if (_journal.length == 0) {
-        return null;
-      }
-      if (_journal.length <= i) {
-        return null;
-      }
-      // if (i.isOdd) {
-      //   return const Divider();
-      // }
-      return _buildRow(_journal[i]);
-    });
+    return ListView.builder(
+        itemCount: _journal.length,
+        itemBuilder: (context, i) {
+          // return const Text('data');
+          // if (_journal.length == 0) {
+          //   return null;
+          // }
+          // if (_journal.length <= i) {
+          //   return null;
+          // }
+          // // if (i.isOdd) {
+          // //   return const Divider();
+          // // }
+          return _buildRow(_journal[i]);
+        });
   }
 
   Widget _buildRow(String journal) {
-    return const ListTile(
-        title: const TextField(
-      decoration:
-          InputDecoration(border: OutlineInputBorder(), hintText: 'input task'),
-    )
-        // Text(
-        //   journal,
-        //   style: _biggerFont,
-        // ),
-        );
+    List<DropdownMenuItem<int>> _items = List();
+    int _selectItem = 0;
+
+    void setItems() {
+      _items
+        ..add(DropdownMenuItem(
+          child: Text(
+            '・',
+            style: TextStyle(fontSize: 40.0),
+          ),
+          value: 1,
+        ))
+        ..add(DropdownMenuItem(
+          child: Text(
+            '×',
+            style: TextStyle(fontSize: 40.0),
+          ),
+          value: 2,
+        ))
+        ..add(DropdownMenuItem(
+          child: Text(
+            '＞',
+            style: TextStyle(fontSize: 40.0),
+          ),
+          value: 3,
+        ));
+    }
+
+    @override
+    void initState() {
+      super.initState();
+      setItems();
+      _selectItem = _items[0].value;
+    }
+
+    return ListTile(
+      title: TextField(
+        decoration: InputDecoration(
+            border: OutlineInputBorder(), hintText: 'input task'),
+      ),
+      trailing: DropdownButton(
+        items: _items,
+        value: _selectItem,
+        onChanged: (int value) => {
+          setState(() {
+            _selectItem = value;
+          }),
+        },
+      ),
+      // Text(
+      //   journal,
+      //   style: _biggerFont,
+      // ),
+    );
   }
 
   void _addJournal() {
