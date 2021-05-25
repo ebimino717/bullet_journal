@@ -24,6 +24,8 @@ class BulletJournals extends StatefulWidget {
 class _BulletJournalsState extends State<BulletJournals> {
   final _journal = <String>[];
   // final _biggerFont = const TextStyle(fontSize: 18);
+  List<DropdownMenuItem<int>> _items = List();
+  int _selectItem = 0;
 
   Widget _buildJournals() {
     return ListView.builder(
@@ -43,48 +45,41 @@ class _BulletJournalsState extends State<BulletJournals> {
         });
   }
 
+  @override
+  void initState() {
+    super.initState();
+    setItems();
+    _selectItem = _items[0].value;
+  }
+
+  void setItems() {
+    _items
+      ..add(DropdownMenuItem(
+        child: Text(
+          '・',
+          style: TextStyle(fontSize: 40.0),
+        ),
+        value: 1,
+      ))
+      ..add(DropdownMenuItem(
+        child: Text(
+          '×',
+          style: TextStyle(fontSize: 40.0),
+        ),
+        value: 2,
+      ))
+      ..add(DropdownMenuItem(
+        child: Text(
+          '＞',
+          style: TextStyle(fontSize: 40.0),
+        ),
+        value: 3,
+      ));
+  }
+
   Widget _buildRow(String journal) {
-    List<DropdownMenuItem<int>> _items = List();
-    int _selectItem = 0;
-
-    void setItems() {
-      _items
-        ..add(DropdownMenuItem(
-          child: Text(
-            '・',
-            style: TextStyle(fontSize: 40.0),
-          ),
-          value: 1,
-        ))
-        ..add(DropdownMenuItem(
-          child: Text(
-            '×',
-            style: TextStyle(fontSize: 40.0),
-          ),
-          value: 2,
-        ))
-        ..add(DropdownMenuItem(
-          child: Text(
-            '＞',
-            style: TextStyle(fontSize: 40.0),
-          ),
-          value: 3,
-        ));
-    }
-
-    @override
-    void initState() {
-      super.initState();
-      setItems();
-      _selectItem = _items[0].value;
-    }
-
     return ListTile(
-      title: TextField(
-        decoration: InputDecoration(
-            border: OutlineInputBorder(), hintText: 'input task'),
-      ),
-      trailing: DropdownButton(
+      leading: DropdownButton(
         items: _items,
         value: _selectItem,
         onChanged: (int value) => {
@@ -93,6 +88,13 @@ class _BulletJournalsState extends State<BulletJournals> {
           }),
         },
       ),
+      title: TextField(
+        decoration: InputDecoration(hintText: 'input task'),
+      ),
+      // trailing: TextField(
+      //   decoration: InputDecoration(
+      //       border: OutlineInputBorder(), hintText: 'input task'),
+      // ),
       // Text(
       //   journal,
       //   style: _biggerFont,
