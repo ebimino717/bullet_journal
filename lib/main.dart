@@ -58,22 +58,16 @@ class _BulletJournalsState extends State<BulletJournals> {
       ..add(DropdownMenuItem(
         child: Text(
           '・',
-          style: TextStyle(fontSize: 40.0),
+          style: TextStyle(fontSize: 18.0),
         ),
         value: 1,
       ))
       ..add(DropdownMenuItem(
-        child: Text(
-          '×',
-          style: TextStyle(fontSize: 40.0),
-        ),
+        child: Icon(Icons.clear),
         value: 2,
       ))
       ..add(DropdownMenuItem(
-        child: Text(
-          '＞',
-          style: TextStyle(fontSize: 40.0),
-        ),
+        child: Icon(Icons.chevron_right),
         value: 3,
       ));
   }
