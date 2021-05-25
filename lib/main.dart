@@ -22,14 +22,15 @@ class BulletJournals extends StatefulWidget {
 }
 
 class _BulletJournalsState extends State<BulletJournals> {
-  final _journal = <String>[];
+  final _journals = <String>[];
+  final _bullets = <int>[];
   // final _biggerFont = const TextStyle(fontSize: 18);
   List<DropdownMenuItem<int>> _items = List();
   int _selectItem = 0;
 
   Widget _buildJournals() {
     return ListView.builder(
-        itemCount: _journal.length,
+        itemCount: _journals.length,
         itemBuilder: (context, i) {
           // return const Text('data');
           // if (_journal.length == 0) {
@@ -41,7 +42,7 @@ class _BulletJournalsState extends State<BulletJournals> {
           // // if (i.isOdd) {
           // //   return const Divider();
           // // }
-          return _buildRow(_journal[i]);
+          return _buildRow(i);
         });
   }
 
@@ -77,14 +78,14 @@ class _BulletJournalsState extends State<BulletJournals> {
       ));
   }
 
-  Widget _buildRow(String journal) {
+  Widget _buildRow(int index) {
     return ListTile(
       leading: DropdownButton(
         items: _items,
-        value: _selectItem,
+        value: _bullets[index],
         onChanged: (int value) => {
           setState(() {
-            _selectItem = value;
+            _bullets[index] = value;
           }),
         },
       ),
@@ -104,7 +105,8 @@ class _BulletJournalsState extends State<BulletJournals> {
 
   void _addJournal() {
     setState(() {
-      _journal.add('');
+      _journals.add('');
+      _bullets.add(1);
     });
   }
 
