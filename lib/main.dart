@@ -25,7 +25,7 @@ class _BulletJournalsState extends State<BulletJournals> {
   final _journals = <String>[];
   final _bullets = <int>[];
   // final _biggerFont = const TextStyle(fontSize: 18);
-  List<DropdownMenuItem<int>> _items = List();
+  final List<DropdownMenuItem<int>> _items = [];
   int _selectItem = 0;
 
   Widget _buildJournals() {
@@ -58,7 +58,7 @@ class _BulletJournalsState extends State<BulletJournals> {
       ..add(DropdownMenuItem(
         child: Text(
           '・',
-          style: TextStyle(fontSize: 18.0),
+          style: TextStyle(fontSize: 18),
         ),
         value: 1,
       ))
@@ -181,10 +181,9 @@ class _RandomWordsState extends State<RondomWords> {
   }
 
   void _pushSaved() {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) {
       final tiles = _saved.map(
-        (WordPair pair) {
+        (pair) {
           return ListTile(
             title: Text(
               pair.asPascalCase,
